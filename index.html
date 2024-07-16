@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All About Quotes</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.0.6/dist/locomotive-scroll.min.js"></script>
+  </head>
+  <body>
+    <div class="blocks">
+      <div class="block init" data-block-section="1" data-href="home">
+        <div class="block__title">Quote</div>
+        <div class="block__number">01</div>
+      </div>
+      <div class="block init" data-block-section="2" data-href="collection">
+        <div class="block__title">Quote</div>
+        <div class="block__number">02</div>
+      </div>
+      <div class="block init" data-block-section="3" data-href="material">
+        <div class="block__title">Quote</div>
+        <div class="block__number">03</div>
+      </div>
+      <div class="block init" data-block-section="4" data-href="production">
+        <div class="block__title">Quote</div>
+        <div class="block__number">04</div>
+      </div>
+      <div class="block init" data-block-section="5" data-href="journal">
+        <div class="block__title">Quote</div>
+        <div class="block__number">05</div>
+      </div>
+    </div>
+    <main data-scroll-container>
+      <div class="wrap" data-scroll-section>
+        <section class="section home" data-block-section="1" id="home">
+          When the stars ask you what it is you want,<br />
+          why do you speak of a love that tears you apart?<br />
+          Why do you crave a love that will break your heart?<br />
+          Your soul is never beyond reapir, so stay humble and be kind <br />
+          and eventually a love will come along <br />
+          and remind you of why you are alive.
+        </section>
+        <section
+          class="section collection"
+          data-block-section="2"
+          id="collection"
+        >
+          Many tried but failed to catch me<br />
+          i am the ghost of ghosts everywhere and nowhere <br />
+          i am magic tricks within magic within magic none have figured out<br />
+          i am a world wrapped in worlds folded in suns and moons <br />
+          you can try but you won't get those hands on me <br/> <br /> -the sun and her flowers
+        </section>
+        <section class="section material" data-block-section="3" id="material">
+          You were so manipulative but i loved you<br />
+          your words were so bitter towards me but i loved you<br />
+          you looked at other men outside of the relationship but i loved you<br />
+          you hurt me and i stayed because i loved you. <br />
+          my love was never enough though was it?
+        </section>
+        <section
+          class="section production"
+          data-block-section="4"
+          id="production"
+        >
+          Hope can be a powerful force.<br />
+          Maybe there's no actual magic in it, but when you know<br />
+          what you hope for most and hold it like a light within you,<br />
+          you can make things happen, almost like magic
+        </section>
+        <section class="section journal" data-block-section="5" id="journal">
+          I have a terrible habit of setting myself on fire, <br />
+          to see whether I burn enough to provide them with the warmth <br />
+          I never received. <br /><br/>
+          yet, I'd still refuse to believe that I don't deserve the pain, <br />
+          because I was taught that the more I turn it all into ashes, <br />
+          the more it would resemble 'love'.
+        </section>
+      </div>
+    </main>
+  </body>
+  <script>
+    const scroll = new LocomotiveScroll({
+      el: document.querySelector("[data-scroll-container]"),
+      smooth: true,
+      direction: "horizontal",
+    });
+
+    let blocks = document.querySelectorAll(".block[data-block-section]");
+    scroll.on("scroll", (args) => {
+      blocks.forEach((block) => {
+        let attr = block.getAttribute("data-block-section");
+        let section = document.querySelector(
+          `section[data-block-section='${attr}']`
+        );
+
+        if (section.getBoundingClientRect().left <= block.offsetWidth * attr) {
+          block.classList.add("fixed");
+          block.classList.remove("init");
+          block.classList.remove("active");
+          block.style.left = "";
+        } else if (
+          section.getBoundingClientRect().left >=
+          window.innerWidth - block.offsetWidth * (blocks.length - attr)
+        ) {
+          block.classList.add("init");
+          block.classList.remove("active");
+          block.classList.remove("fixed");
+          block.style.left = "";
+        } else {
+          block.classList.add("active");
+          block.classList.remove("init");
+          block.classList.remove("fixed");
+        }
+
+        if (block.classList.contains("active")) {
+          block.style.left = section.getBoundingClientRect().left + "px";
+        }
+      });
+    });
+  </script>
+</html>
